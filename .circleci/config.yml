@@ -7,11 +7,18 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - run: echo hello
+      - - persist_to_workspace:
+          root: ~/
+          paths:
+            - output.txt
   print_world:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - run: echo world
+      - attach_workspace:
+          at: ~/
+      - run: cat ~/output.txt
   print_Env_Variable:
     docker:
       - image: cimg/base:2020.01
